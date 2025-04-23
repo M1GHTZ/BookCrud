@@ -17,8 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from store import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('book/add',views.BookCreateView.as_view(), name='book-add')
-]
+    path('book/add/',views.BookCreateView.as_view(), name='book-add'),
+    path('book/list/',views.BookListView.as_view(), name='book-list'),
+    path('book/<int:pk>/',views.BookDetailView.as_view(), name='book-detail'),
+    path('book/<int:pk>/remove/',views.BookDeleteView.as_view(), name='book-delete'),
+    path('book/<int:pk>/edit/',views.BookUpdateView.as_view(),name="book-edit"),
+    path('book/<int:pk>/update/',views.BookUpdateView.as_view(),name='book-update')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

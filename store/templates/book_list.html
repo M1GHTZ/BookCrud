@@ -1,0 +1,48 @@
+{%extends 'base.html'%}
+
+{%block main_block%}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-4">
+            <form action="">
+                <input type="text" name="search">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <table class="table table-striped">
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+                {%for b in data%}
+                <tr>
+                    <td>{{b.title}}</td>
+                    <td>{{b.author}}</td>
+                    <td>{{b.price}}</td>
+                    <td>
+                        {%if b.image%}
+                        <img src="{{b.image.url}}" alt="" height="20%" width="20%">
+                        {%endif%}
+                    </td>
+                    <td>
+                        <a href="{%url 'book-detail' b.id%}"><i class="bi bi-eye"></i></a>
+                        <a href="{%url 'book-delete' b.id%}"><i class="bi bi-trash"></i></a>
+                        <a href="{%url 'book-edit' b.id%}"><i class="bi bi-pencil-fill"></i></a>
+                    </td>
+                </tr>
+                {%endfor%}
+            </table>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+{%endblock%}
